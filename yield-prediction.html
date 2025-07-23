@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yield Prediction - AgriTech</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding-top: 80px;
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .result-container {
+      display: none;
+      background: #e8f5e9;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+    .crop-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #198754;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <i class="fas fa-leaf me-2"></i>AgriTech
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="disease.html">Disease Detection</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="crop-recommendation.html">Crop Recommendation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="yield-prediction.html">Yield Prediction</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="marketplace.html">Marketplace</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="chat.html">Community Chat</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <a href="login.html" class="btn btn-outline-light me-2">Login</a>
+          <a href="register.html" class="btn btn-light">Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h1 class="text-center mb-4">Crop Yield Prediction</h1>
+        <p class="text-center text-muted mb-5">Predict the potential yield of your crops based on various factors.</p>
+        
+        <div class="form-container">
+          <form id="yieldForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="cropType" class="form-label">Crop Type</label>
+                <select class="form-select" id="cropType" required>
+                  <option value="" selected disabled>Select crop type</option>
+                  <option value="wheat">Wheat</option>
+                  <option value="rice">Rice</option>
+                  <option value="maize">Maize</option>
+                  <option value="sugarcane">Sugarcane</option>
+                  <option value="cotton">Cotton</option>
+                  <option value="soybean">Soybean</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="area" class="form-label">Area (in hectares)</label>
+                <input type="number" step="0.01" class="form-control" id="area" required>
+              </div>
+              <div class="col-md-6">
+                <label for="rainfall" class="form-label">Rainfall (mm)</label>
+                <input type="number" step="0.1" class="form-control" id="rainfall" required>
+              </div>
+              <div class="col-md-6">
+                <label for="temperature" class="form-label">Average Temperature (°C)</label>
+                <input type="number" step="0.1" class="form-control" id="temperature" required>
+              </div>
+              <div class="col-md-6">
+                <label for="fertilizer" class="form-label">Fertilizer Used (kg/ha)</label>
+                <input type="number" step="0.1" class="form-control" id="fertilizer" required>
+              </div>
+              <div class="col-md-6">
+                <label for="pesticide" class="form-label">Pesticide Used (kg/ha)</label>
+                <input type="number" step="0.1" class="form-control" id="pesticide" required>
+              </div>
+              <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-success btn-lg w-100">Predict Yield</button>
+              </div>
+            </div>
+          </form>
+          
+          <div id="resultContainer" class="result-container text-center">
+            <div id="yieldResults">
+              <i class="fas fa-seedling crop-icon"></i>
+              <h3 id="yieldValue" class="mb-3">-</h3>
+              <p id="yieldMessage" class="mb-0">Your predicted yield will appear here</p>
+              <div id="yieldChart" class="mt-4" style="height: 200px;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Understanding Yield Prediction</h5>
+            <p class="card-text">
+              Our yield prediction model uses machine learning to estimate crop yields based on various environmental 
+              and agricultural factors. For best results, please provide accurate measurements.
+            </p>
+            <ul>
+              <li>Select the specific crop type you're growing</li>
+              <li>Enter the total cultivation area in hectares</li>
+              <li>Provide seasonal rainfall data in millimeters</li>
+              <li>Include average temperature during the growing season</li>
+              <li>Specify the amount of fertilizer and pesticide used</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+      <div class="text-center">
+        <p class="mb-0">&copy; 2025 AgriTech. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js for visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let yieldChart = null;
+    
+    document.getElementById('yieldForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Predicting...';
+      
+      // Get form values
+      const formData = {
+        cropType: document.getElementById('cropType').value,
+        area: parseFloat(document.getElementById('area').value),
+        rainfall: parseFloat(document.getElementById('rainfall').value),
+        temperature: parseFloat(document.getElementById('temperature').value),
+        fertilizer: parseFloat(document.getElementById('fertilizer').value),
+        pesticide: parseFloat(document.getElementById('pesticide').value)
+      };
+      
+      // Simulate API call (replace with actual API call)
+      setTimeout(() => {
+        // Mock prediction (in a real app, this would come from your backend)
+        const mockYield = calculateMockYield(formData);
+        displayYieldResult(mockYield, formData);
+        
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }, 1500);
+    });
+    
+    function calculateMockYield(formData) {
+      // Simple mock calculation (replace with actual model prediction)
+      const baseYields = {
+        wheat: 3000,
+        rice: 4000,
+        maize: 5000,
+        sugarcane: 70000,
+        cotton: 1500,
+        soybean: 2500
+      };
+      
+      const baseYield = baseYields[formData.cropType] || 3000;
+      
+      // Adjust yield based on factors (simplified)
+      let yieldValue = baseYield;
+      
+      // Temperature adjustment (optimal around 25°C)
+      const tempDiff = Math.abs(25 - formData.temperature);
+      yieldValue *= (1 - (tempDiff * 0.01));
+      
+      // Rainfall adjustment (optimal around 500mm)
+      const rainfallRatio = formData.rainfall / 500;
+      yieldValue *= Math.min(rainfallRatio, 1.5);
+      
+      // Fertilizer adjustment (diminishing returns)
+      const fertFactor = 0.5 * (1 - Math.exp(-0.005 * formData.fertilizer));
+      yieldValue *= (1 + fertFactor);
+      
+      // Random variation
+      yieldValue *= (0.95 + Math.random() * 0.1);
+      
+      // Apply area
+      yieldValue *= formData.area;
+      
+      return Math.round(yieldValue);
+    }
+    
+    function displayYieldResult(yieldValue, formData) {
+      const resultContainer = document.getElementById('resultContainer');
+      const yieldElement = document.getElementById('yieldValue');
+      const messageElement = document.getElementById('yieldMessage');
+      
+      // Update result display
+      yieldElement.textContent = `${yieldValue.toLocaleString()} kg`;
+      messageElement.textContent = `Predicted yield for ${formData.area} ha of ${formData.cropType}`;
+      
+      // Show result container
+      resultContainer.style.display = 'block';
+      
+      // Create or update chart
+      updateYieldChart(formData.cropType, yieldValue, formData.area);
+      
+      // Scroll to results
+      resultContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function updateYieldChart(cropType, yieldValue, area) {
+      const ctx = document.createElement('canvas');
+      const container = document.getElementById('yieldChart');
+      
+      // Clear previous chart if it exists
+      if (yieldChart) {
+        yieldChart.destroy();
+      }
+      
+      // Set up the chart
+      container.innerHTML = '';
+      container.appendChild(ctx);
+      
+      // Mock data for the chart
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+      const growthFactors = [0.1, 0.3, 0.6, 0.8, 0.95, 1.0];
+      const monthlyYield = growthFactors.map(factor => (yieldValue * factor / area).toFixed(2));
+      
+      // Create the chart
+      yieldChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: [{
+            label: 'Cumulative Yield (kg/ha)',
+            data: monthlyYield,
+            borderColor: '#198754',
+            backgroundColor: 'rgba(25, 135, 84, 0.1)',
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `Yield: ${context.parsed.y} kg/ha`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Yield (kg/ha)'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Growth Stage'
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

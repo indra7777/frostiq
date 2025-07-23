@@ -1,0 +1,12 @@
+[submodule "BakeryBackend"]
+	path = BakeryBackend
+	url = https://github.com/RoshanAli339/BakeryBackend
+[submodule "bakery"]
+	path = bakery
+	url = https://github.com/ashanmukhasairam/bakery
+[submodule "torto-forto"]
+	path = torto-forto
+	url = https://github.com/kvnrajasekhar/torto-forto
+[submodule "Hackmela"]
+	path = Hackmela
+	url = https://github.com/indra7777/Hackmela

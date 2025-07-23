@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register - AgriTech</title>
   <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 </head>
 
 <body>
   <div class="form-container">
     <h2>Register</h2>
-    <form onsubmit="handleRegister(event)">
+    <form id="registerForm" onsubmit="handleRegister(event)" class="needs-validation" novalidate>
       <select required>
         <option value="">Select Role</option>
         <option value="buyer">Buyer</option>
@@ -21,7 +22,8 @@
       </select>
       <input type="text" placeholder="Full Name" required />
       <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Password" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
       <button type="submit">Register</button>
       <p>Already have an account? <a href="login.html">Login here</a></p>
     </form>

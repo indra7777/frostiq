@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Recommendation - AgriTech</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding-top: 80px;
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .result-container {
+      display: none;
+      background: #e8f5e9;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <i class="fas fa-leaf me-2"></i>AgriTech
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="disease.html">Disease Detection</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="crop-recommendation.html">Crop Recommendation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="yield-prediction.html">Yield Prediction</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="marketplace.html">Marketplace</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="chat.html">Community Chat</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <a href="login.html" class="btn btn-outline-light me-2">Login</a>
+          <a href="register.html" class="btn btn-light">Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h1 class="text-center mb-4">Crop Recommendation System</h1>
+        <p class="text-center text-muted mb-5">Enter your soil and weather conditions to get personalized crop recommendations.</p>
+        
+        <div class="form-container">
+          <form id="cropForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="nitrogen" class="form-label">Nitrogen (N) level</label>
+                <input type="number" class="form-control" id="nitrogen" required>
+              </div>
+              <div class="col-md-6">
+                <label for="phosphorus" class="form-label">Phosphorus (P) level</label>
+                <input type="number" class="form-control" id="phosphorus" required>
+              </div>
+              <div class="col-md-6">
+                <label for="potassium" class="form-label">Potassium (K) level</label>
+                <input type="number" class="form-control" id="potassium" required>
+              </div>
+              <div class="col-md-6">
+                <label for="temperature" class="form-label">Temperature (°C)</label>
+                <input type="number" step="0.1" class="form-control" id="temperature" required>
+              </div>
+              <div class="col-md-6">
+                <label for="humidity" class="form-label">Humidity (%)</label>
+                <input type="number" step="0.1" class="form-control" id="humidity" required>
+              </div>
+              <div class="col-md-6">
+                <label for="ph" class="form-label">Soil pH</label>
+                <input type="number" step="0.1" class="form-control" id="ph" min="0" max="14" required>
+              </div>
+              <div class="col-md-6">
+                <label for="rainfall" class="form-label">Rainfall (mm)</label>
+                <input type="number" step="0.1" class="form-control" id="rainfall" required>
+              </div>
+              <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-success btn-lg w-100">Get Recommendations</button>
+              </div>
+            </div>
+          </form>
+          
+          <div id="resultContainer" class="result-container">
+            <h3 class="text-center mb-4">Recommended Crops</h3>
+            <div id="recommendationResults" class="text-center">
+              <!-- Results will be displayed here -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title">How to use this tool</h5>
+            <p class="card-text">
+              This tool uses machine learning to recommend the best crops based on your soil and weather conditions. 
+              For accurate results, please provide the most recent soil test results and weather data.
+            </p>
+            <ul>
+              <li>N, P, K levels should be in kg/ha</li>
+              <li>Temperature should be in Celsius</li>
+              <li>Humidity should be in percentage</li>
+              <li>Rainfall should be in millimeters</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+      <div class="text-center">
+        <p class="mb-0">&copy; 2025 AgriTech. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('cropForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+      
+      // Simulate API call (replace with actual API call)
+      setTimeout(() => {
+        // Mock recommendations (in a real app, this would come from your backend)
+        const mockRecommendations = [
+          { name: 'Wheat', probability: 0.87 },
+          { name: 'Rice', probability: 0.82 },
+          { name: 'Maize', probability: 0.76 }
+        ];
+        
+        displayResults(mockRecommendations);
+        
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }, 1500);
+    });
+    
+    function displayResults(recommendations) {
+      const resultContainer = document.getElementById('recommendationResults');
+      resultContainer.innerHTML = '';
+      
+      recommendations.forEach((crop, index) => {
+        const progress = Math.round(crop.probability * 100);
+        const color = getProgressBarColor(progress);
+        
+        const cropElement = document.createElement('div');
+        cropElement.className = 'mb-3';
+        cropElement.innerHTML = `
+          <div class="d-flex justify-content-between mb-1">
+            <span>${index + 1}. ${crop.name}</span>
+            <span>${progress}%</span>
+          </div>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar ${color}" role="progressbar" 
+                 style="width: ${progress}%" 
+                 aria-valuenow="${progress}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100"></div>
+          </div>
+        `;
+        resultContainer.appendChild(cropElement);
+      });
+      
+      document.getElementById('resultContainer').style.display = 'block';
+      
+      // Scroll to results
+      document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function getProgressBarColor(percentage) {
+      if (percentage > 75) return 'bg-success';
+      if (percentage > 50) return 'bg-primary';
+      if (percentage > 25) return 'bg-warning';
+      return 'bg-danger';
+    }
+  </script>
+</body>
+</html>
