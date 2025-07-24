@@ -1,0 +1,10 @@
+❄️ FrostIQ
+FrostIQ is a smart authentication and verification system designed for modern web and mobile apps. It leverages FastAPI for lightning-fast backend APIs and Twilio for secure OTP-based user login, offering a seamless and secure onboarding experience.
+
+✨ Features
+🔐 OTP-based Authentication via SMS (Twilio)
+⚡ Built with FastAPI – fast, asynchronous Python web framework
+📱 Easy integration with mobile or web frontends
+🧪 Interactive API docs using Swagger and ReDoc
+🌍 Ready for cloud deployment
+--
