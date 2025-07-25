@@ -1,5 +1,3 @@
-.venv/
-cd path/to/frostiq
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
