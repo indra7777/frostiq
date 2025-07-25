@@ -1,6 +1,6 @@
 fastapi
 uvicorn[standard]
 sqlalchemy
-databases
 python-multipart
-pydantic 
+pydantic
+pytest 

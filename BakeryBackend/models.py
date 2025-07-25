@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from database import Base
+from BakeryBackend.database import Base
 
 class Favorite(Base):
     __tablename__ = "favorites"
