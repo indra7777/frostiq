@@ -12,6 +12,25 @@ Frostiq's BakeryBackend is a FastAPI-based backend service for managing user fav
 - SQLite database (file always stored in `BakeryBackend/`)
 - Ready for unit/integration testing with pytest
 
+
+## Deployed Application
+
+You can explore and test all API endpoints using the built-in **Swagger UI**:  
+[https://frostiq-bakery-backend.onrender.com/docs](https://frostiq-bakery-backend.onrender.com/docs)
+
+---
+
+## API Testing via Swagger UI
+
+Swagger provides an interactive way to test the API:
+
+### Available Endpoints:
+- `GET /favorites/{user_id}` – Fetch all favorite items for a user  
+- `POST /favorites` – Add a new item to favorites  
+- `DELETE /favorites/{user_id}/{item_id}` – Remove an item from favorites
+
+You can view request/response formats and try out the endpoints directly in your browser.
+
 ## Setup Instructions
 1. **Clone the repository:**
    ```bash
